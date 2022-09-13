@@ -1,0 +1,38 @@
+package screenShot;
+
+import java.io.File;
+import java.io.IOException;
+import java.time.Duration;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Test0 {
+
+	public static void main(String[] args) throws IOException {
+		WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.amazon.com/");
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		
+		//step:1 typecasting
+		TakesScreenshot ts=(TakesScreenshot) driver;
+		
+		//step:2 we can access the method and store it in RAM
+		File src = ts.getScreenshotAs(OutputType.FILE);
+		
+		//step:3 i have specify the location
+		File dest=new File("./photo/amazon.png");
+		
+		//step:4 copy and paste from RAM to required location
+		FileUtils.copyFile(src, dest);
+		
+		driver.close();
+		
+
+	}
+
+}
